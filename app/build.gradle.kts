@@ -7,6 +7,10 @@ android {
     namespace = "com.csis4175.zenith"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true;
+    }
+
     defaultConfig {
         applicationId = "com.csis4175.zenith"
         minSdk = 28

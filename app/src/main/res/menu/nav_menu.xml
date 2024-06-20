@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/nav_meditate"
+            android:icon="@drawable/baseline_self_improvement_24"
+            android:title="Meditate"/>
+
+        <item
+            android:id="@+id/nav_journal"
+            android:icon="@drawable/baseline_rate_review_24"
+            android:title="Journal"/>
+
+        <item
+            android:id="@+id/nav_routine"
+            android:icon="@drawable/baseline_task_alt_24"
+            android:title="Routine"/>
+
+
+
+    </group>
+
+
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+
+</menu>
