@@ -62,19 +62,14 @@ public class Registration extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(Registration.this, "Account Created.",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Login.class);
                                 startActivity(intent);
                                 finish();
-
                             } else {
-                                // If sign in fails, display a message to the user.
-
                                 Toast.makeText(Registration.this, task.getException().getLocalizedMessage(),
                                         Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });
@@ -85,7 +80,7 @@ public class Registration extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in and redirect accordingly
         if (mAuth != null) {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {

@@ -4,12 +4,15 @@ plugins {
 }
 
 android {
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     namespace = "com.csis4175.zenith"
     compileSdk = 34
 
-    buildFeatures {
-        viewBinding = true;
-    }
+
 
     defaultConfig {
         applicationId = "com.csis4175.zenith"
@@ -38,11 +41,17 @@ android {
 
 dependencies {
 
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1") //for recycler view swipe
+    implementation ("com.google.android.exoplayer:exoplayer:2.18.0") // for music player
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

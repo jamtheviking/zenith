@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How are you today?"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/buttonMoodAmazing"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Amazing"
+            android:src="@drawable/amazing"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:id="@+id/buttonMoodGreat"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Great"
+            android:src="@drawable/good"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:id="@+id/buttonMoodGood"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Good"
+            android:src="@drawable/meh"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:id="@+id/buttonMoodBad"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Bad"
+            android:src="@drawable/bad"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:id="@+id/buttonMoodAwful"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Awful"
+            android:src="@drawable/angry"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Describe what happened..."
+        android:layout_marginTop="16dp"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="center_vertical" />
+
+    <Button
+        android:id="@+id/buttonSaveEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:text="Save Entry"
+        android:gravity="center" />
+
+</LinearLayout>

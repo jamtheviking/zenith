@@ -1,64 +1,138 @@
 package com.csis4175.zenith;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link JournalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class JournalFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private JournalAdapter journalAdapter;
+    private List<JournalEntry> journalEntries;
+    private ImageButton lastSelectedButton;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public JournalFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment JournalFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static JournalFragment newInstance(String param1, String param2) {
-        JournalFragment fragment = new JournalFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_journal, container, false);
+        View view = inflater.inflate(R.layout.fragment_journal, container, false);
+
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewJournal);
+        journalEntries = new ArrayList<>();
+        journalAdapter = new JournalAdapter(journalEntries);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(journalAdapter);
+
+        // Initialize FloatingActionButton
+        FloatingActionButton fabAddEntry = view.findViewById(R.id.fabAddEntry);
+        fabAddEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddEntryDialog();
+            }
+        });
+
+        return view;
+    }
+
+    private void showAddEntryDialog() {
+        // Inflate the dialog layout
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_entry_journal, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        // Initialize dialog views
+        final ImageButton buttonMoodAmazing = dialogView.findViewById(R.id.buttonMoodAmazing);
+        final ImageButton buttonMoodGreat = dialogView.findViewById(R.id.buttonMoodGreat);
+        final ImageButton buttonMoodGood = dialogView.findViewById(R.id.buttonMoodGood);
+        final ImageButton buttonMoodBad = dialogView.findViewById(R.id.buttonMoodBad);
+        final ImageButton buttonMoodAwful = dialogView.findViewById(R.id.buttonMoodAwful);
+        final EditText editTextDescription = dialogView.findViewById(R.id.editTextDescription);
+        final Button buttonSaveEntry = dialogView.findViewById(R.id.buttonSaveEntry);
+
+        final String[] selectedMood = new String[1];
+
+        View.OnClickListener moodClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Clear the previous selection
+                if (lastSelectedButton != null) {
+                    lastSelectedButton.setSelected(false);
+                }
+                // Set the new selection
+                v.setSelected(true);
+                lastSelectedButton = (ImageButton) v;
+
+                switch (v.getId()) {
+                    case R.id.buttonMoodAmazing:
+                        selectedMood[0] = "Amazing";
+                        break;
+                    case R.id.buttonMoodGreat:
+                        selectedMood[0] = "Great";
+                        break;
+                    case R.id.buttonMoodGood:
+                        selectedMood[0] = "Good";
+                        break;
+                    case R.id.buttonMoodBad:
+                        selectedMood[0] = "Bad";
+                        break;
+                    case R.id.buttonMoodAwful:
+                        selectedMood[0] = "Awful";
+                        break;
+                }
+                Toast.makeText(getContext(), "Mood selected: " + selectedMood[0], Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        buttonMoodAmazing.setOnClickListener(moodClickListener);
+        buttonMoodGreat.setOnClickListener(moodClickListener);
+        buttonMoodGood.setOnClickListener(moodClickListener);
+        buttonMoodBad.setOnClickListener(moodClickListener);
+        buttonMoodAwful.setOnClickListener(moodClickListener);
+
+        //Create dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        //Save journal
+        buttonSaveEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = editTextDescription.getText().toString().trim();
+                if (selectedMood[0] == null || selectedMood[0].isEmpty() || description.isEmpty()) {
+                    Toast.makeText(getContext(), "Please select a mood and enter a description.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                journalEntries.add(new JournalEntry(selectedMood[0], description, timestamp));
+                journalAdapter.notifyDataSetChanged();
+
+                dialog.dismiss();
+            }
+        });
     }
 }

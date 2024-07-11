@@ -13,12 +13,17 @@
         android:icon="@drawable/baseline_self_improvement_24"/>
 
     <item
+        android:id="@+id/bottom_focus"
+        android:title="Focus"
+        android:icon="@drawable/baseline_lock_clock_24"/>
+
+    <item
         android:id="@+id/bottom_journal"
         android:title="Journal"
         android:icon="@drawable/baseline_rate_review_24"/>
 
     <item
         android:id="@+id/bottom_routine"
-        android:title="Library"
+        android:title="Routine"
         android:icon="@drawable/baseline_task_alt_24"/>
 </menu>
